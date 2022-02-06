@@ -11,12 +11,23 @@ public class CameraMovement : MonoBehaviour
     private float zOffset;
 
     [SerializeField]
-    private GameObject target;
+    private float yOffset;
+
+    public GameObject target;
+
+    public static CameraMovement instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+    }
 
     private void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.transform.position.x,
-            transform.position.y, target.transform.position.z + zOffset), followSpeed * Time.deltaTime);
+            target.transform.position.y + yOffset, target.transform.position.z + zOffset),
+            followSpeed * Time.deltaTime);
     }
 
     public void CameraShake()

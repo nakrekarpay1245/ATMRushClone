@@ -10,6 +10,8 @@ public class ATMRush : MonoBehaviour
 
     public float movementDelay = 0.25f;
 
+    bool gameStop;
+
     public void Awake()
     {
         if (instance == null)
@@ -20,11 +22,15 @@ public class ATMRush : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKey(KeyCode.Mouse0))
-            MoveListElements(movementDelay);
+        if (!gameStop)
+        {
+            //Debug.LogWarning("ATM RUSH GAME NOT FİNİSH");
+            if (Input.GetKey(KeyCode.Mouse0))
+                MoveListElements(movementDelay);
 
-        else
-            MoveListElements(movementDelay / 2);
+            else
+                MoveListElements(movementDelay / 2);
+        }
     }
     public void StackCube(GameObject other, int index)
     {
@@ -32,7 +38,7 @@ public class ATMRush : MonoBehaviour
 
         other.transform.parent = transform;
         Vector3 newPos = cubes[index].transform.localPosition;
-        newPos.z += 1;
+        newPos.z += 2;
         other.transform.localPosition = newPos;
         cubes.Add(other);
         StartCoroutine(MakeObjectsBigger());
@@ -66,15 +72,9 @@ public class ATMRush : MonoBehaviour
         }
     }
 
-    private void MoveOrigin()
+    public void GameStop()
     {
-        // Debug.Log("Move Origin");
-
-        for (int i = 1; i < cubes.Count; i++)
-        {
-            Vector3 pos = cubes[i].transform.localPosition;
-            pos.x = cubes[0].transform.localPosition.x;
-            cubes[i].transform.DOLocalMove(pos, 0.70f);
-        }
+        //Debug.LogWarning("ATM RUSH GAME FİNİSH");
+        gameStop = true;
     }
 }

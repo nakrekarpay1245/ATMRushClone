@@ -15,9 +15,9 @@ public class Collision : MonoBehaviour
                 other.gameObject.GetComponent<BoxCollider>().isTrigger = false;
                 other.gameObject.tag = "Untagged";
                 other.gameObject.AddComponent<Collision>();
-                other.gameObject.AddComponent<Rigidbody>();
+                //other.gameObject.AddComponent<Rigidbody>();
                 other.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-
+                other.gameObject.GetComponent<NPC_Car>().CarStop();
                 ATMRush.instance.StackCube(other.gameObject, ATMRush.instance.cubes.Count - 1);                
             }
         }
